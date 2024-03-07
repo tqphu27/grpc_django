@@ -31,7 +31,8 @@ def test_machine_learning_service():
         print("Import method failed:", e)
 
     # Test phương thức PerformAction
-    action_request = ActionRequest(action_type=ActionRequest.PREDICT)
+    # PREDICT = 0; EXPORT = 1; CREATE_DATASET = 2; LOGS = 3; DOWNLOAD_CHECKPOINT = 4;
+    action_request = ActionRequest(action_type=ActionRequest.DOWNLOAD_CHECKPOINT)
     try:
         response = stub.PerformAction(action_request)
         print("PerformAction method works:", response)

@@ -51,7 +51,18 @@ class MachineLearningServicer(MachineLearningServicer):
 
     def PerformAction(self, request, context):
         try:
-            self.ml_status = "Action"
+            action_type = request.action_type
+            if action_type == 0:
+                self.ml_status = "PREDICT"
+            elif action_type == 1:
+                self.ml_status = "EXPORT"
+            elif action_type == 2:
+                self.ml_status = "CREATE_DATASET"
+            elif action_type == 3:
+                self.ml_status = "LOGS"
+            elif action_type == 4:
+                self.ml_status = "DOWNLOAD_CHECKPOINT"
+
             return ActionResponse(ml_status=self.ml_status)
         except Exception as e:
                 context.set_code(grpc.StatusCode.UNAUTHENTICATED)
