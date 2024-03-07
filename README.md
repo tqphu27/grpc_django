@@ -1,24 +1,22 @@
 # grpc_django
 
-Cách sử dụng ứng dụng
-
-1. Clone code về và chạy ứng dụng
+1. Clone the code and run the application
 ```
 git clone https://github.com/tqphu27/grpc_django.git
 ```
-2. Khởi chạy ứng dụng
+2. Launch the application
 ```
 git checkout dev
 bash build.sh
 ```
 
-3. Thực hiện các chức năng ứng dụng
-  - Nếu chưa có super user thì có thể tạo user user
+3. Execute application functionalities
+  - If there is no superuser, you can create one using:
 ```
 python manage.py createsuperuser 
 ```
-  -  Sau đó truy cập vào http://localhost:8000/admin/oauth2_provider/application/ để lấy thông tin grant_type, client_id, client_secret
-  -  Sau khi có được thông tin trên, thực hiện tạo ra access-token:
+  -  Then, access http://localhost:8000/admin/oauth2_provider/application/ to obtain grant_type, client_id, and client_secret information.
+  -  After obtaining the above information, generate an access token:
 ```
 curl --location 'http://localhost:8000/o/token/' \
 --header 'Content-Type: application/x-www-form-urlencoded' \
@@ -27,7 +25,7 @@ curl --location 'http://localhost:8000/o/token/' \
 --data-urlencode 'client_id=upwerF0jrragaxxkNXHDMTGGe8ciMwJN6yVoIOAu' \
 --data-urlencode 'client_secret=3aa4PCcNRwyXzs86QP0PWnOnko0ZW6ym4WD0W539XjjOuPDggxO6r5bKSdOxW1HkLwBiwLEIxAf5SzmR2qTBoRo1a7dj2E4ur84zde9tbBO7ykGaoKrYgTG53ZsKWFUi'
 ```
-  - Sau đó, khởi chạy grpc server:
+  - Then, start the grpc server:
 ```
 curl --location 'http://localhost:8000/grpc/start/' \
 --header 'Content-Type: application/json' \
@@ -35,7 +33,7 @@ curl --location 'http://localhost:8000/grpc/start/' \
 --header 'Cookie: csrftoken=74erCbmX3EfWIFvjHhwdXn89SNxxNDd1n9J9dhvm8FkjTNu4Lc50qd5VRCazOFY3' \
 --data '{"data": "your_base64_encoded_data"}'
 ```
-- Để ngắt grpc server :
+- To stop the grpc server:
 ```
 curl --location 'http://localhost:8000/grpc/start/' \
 --header 'Content-Type: application/json' \
@@ -44,30 +42,32 @@ curl --location 'http://localhost:8000/grpc/start/' \
 --data '{"data": "your_base64_encoded_data"}'
 ```
 
-4. Kiểm thử hệ thống 
-  - Chạy file oauth_client.py để kiểm tra Oauth server đã hoạt động chưa, nếu thành công nó sẽ hiện:
+4. System testing
+  - Run oauth_client.py file to check if the OAuth server is operational. If successful, it will display:
 ```
 {
   'message': 'Successfully!'
 }
 ```
-  - Chạy file grbc_client.py để kiểm tra 3 api
+  - Run grbc_client.py file to test the 3 APIs:
 
-    a. Setup, truyền vào token
-  - Nếu thành công: 
+    a. Setup - pass the token
+  - If successful:
 ```
 {
   SetUp method works. ML status: Active
 }
 ```
-  b. Import - cho phép upload ảnh, các file
-  - Nếu thành công 
+
+  b. Import - allows uploading images and files
+  - If successful:
 ```
 {
    Import method works: ml_status: "Imported"
 }
 ```
-  c. Action -truyền vào các action (PREDICT, EXPORT, CREATE_DATASET, LOGS, DOWNLOAD_CHECKPOINT)
+
+  c. Action - pass actions (PREDICT, EXPORT, CREATE_DATASET, LOGS, DOWNLOAD_CHECKPOINT)
 ```
 {
    PerformAction method works: ml_status: "PREDICT"
