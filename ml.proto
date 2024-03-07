@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+message TokenRequest {
+    string token = 1;
+}
+
+message ImportRequest {
+  repeated FileData files = 1;
+}
+
+message ActionRequest {
+    enum ActionType {
+        PREDICT = 0;
+        EXPORT = 1;
+        CREATE_DATASET = 2;
+        LOGS = 3;
+        DOWNLOAD_CHECKPOINT = 4;
+    }
+
+    ActionType action_type = 1;
+}
+
+message SetUpResponse {
+  string ml_status = 1;
+}
+
+message ImportResponse {
+  string ml_status = 2;
+}
+
+message ActionResponse {
+  string ml_status = 3;
+}
+
+message FileData {
+  string filename = 1;
+  bytes content = 2;
+}
+
+service MachineLearning {
+    rpc SetUp(TokenRequest) returns (SetUpResponse);
+    rpc Import(ImportRequest) returns (ImportResponse) {}
+    rpc PerformAction(ActionRequest) returns (ActionResponse) {}
+}

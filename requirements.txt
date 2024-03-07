@@ -1,0 +1,9 @@
+decorator                     
+Django                                     
+django-grpc                   
+django-grpc-framework                         
+django-oauth-toolkit    
+djangorestframework     
+djangogrpcframework           
+protobuf==3.20.0                         
+             
